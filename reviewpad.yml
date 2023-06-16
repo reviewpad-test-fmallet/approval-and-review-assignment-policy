@@ -1,9 +1,9 @@
 dictionaries:
  - name: team-per-file-path
    spec:
-     - '**/authentication/**': '"security"'
-     - '**/db/**': '"dba"'
-     - '.github/workflows/**': '"devops"' 
+     '**/authentication/**': '"security"'
+     '**/db/**': '"dba"'
+     '.github/workflows/**': '"devops"' 
 
 workflows:
   - name: Approval and Review Assignment Policy
