@@ -22,15 +22,15 @@ workflows:
             else: 
               # Second mandatory approval level based on touched files
               - forEach: 
-                key: $filePattern
-                value: $teamName
-                in: $dictionary("team-per-file-path")
-                do:
-                  - if: $hasFilePattern($filePattern) && !$hasRequiredApprovals(1, $team($teamName))
-                    then: 
-                      # Lock the Merge if no approval
-                      - failCheckStatus($sprintf("One approval is required from team '%s' as one file matching '%s' has been touched", [$teamName, $filePattern]))
+                  key: $filePattern
+                  value: $teamName
+                  in: $dictionary("team-per-file-path")
+                  do:
+                    - if: $hasFilePattern($filePattern) && !$hasRequiredApprovals(1, $team($teamName))
+                      then: 
+                        # Lock the Merge if no approval
+                        - failCheckStatus($sprintf("One approval is required from team '%s' as one file matching '%s' has been touched", [$teamName, $filePattern]))
                   
-                      # Assign the PR to one team member  if this is not yet the case
-                      - if: '!$any($reviewers(), ($reviewer: String => $isElementOf($reviewer, $team($teamName))))'
-                        then: $assignReviewer($team($teamName), 1)
+                        # Assign the PR to one team member  if this is not yet the case
+                        - if: '!$any($reviewers(), ($reviewer: String => $isElementOf($reviewer, $team($teamName))))'
+                          then: $assignReviewer($team($teamName), 1)
