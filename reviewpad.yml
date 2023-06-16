@@ -1,5 +1,5 @@
 dictionaries:
- - name: team-per-file-path
+ - name: approval-team-per-file-path
    spec:
      '**/authentication/**': '"security"'
      '**/db/**': '"dba"'
@@ -24,7 +24,7 @@ workflows:
               - forEach: 
                   key: $filePattern
                   value: $teamName
-                  in: $dictionary("team-per-file-path")
+                  in: $dictionary("approval-team-per-file-path")
                   do:
                     - if: $hasFilePattern($filePattern) && !$hasRequiredApprovals(1, $team($teamName))
                       then: 
